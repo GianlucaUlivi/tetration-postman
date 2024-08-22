@@ -479,7 +479,8 @@
 					"}",
 					"",
 					"//Calculate the Digest which is generated based on the timestamp, checksum, additional header parameters, and the secret key",
-					"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+					url_and_params = pm.variables.replaceIn(pm.request.url.toString().split('/openapi/v1/')[1])
+					"var signer = request.method + '\\n/openapi/v1/' + url_and_params + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
 					"",
 					"var digestauth = CryptoJS.HmacSHA256(signer, pm.environment.get('API_SECRET'));",
 					"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
